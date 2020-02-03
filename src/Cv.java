@@ -21,6 +21,30 @@ public class Cv {
 		
 	}
 	
+	public void affiche() {
+		
+		System.out.println("*************************") ;
+
+		System.out.println("Nom : " + nom);
+		
+		System.out.println("Prénom : " + prenom);
+		
+		System.out.println("Formation : " + formation);
+		
+		System.out.println("nombre d'années d'expériences : " + nbAnneesExp);
+		
+		System.out.println("Competence : ");
+		
+		for (int i = 0; i < competence.length; i++) {
+			
+			System.out.println("- " + competence[i]);
+		
+		}
+		
+		
+		System.out.println("Attantes vis à vis le cours 4B4: " + attantes);
+	}
+	
 }
 
 
