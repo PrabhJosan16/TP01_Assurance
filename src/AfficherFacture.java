@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class AfficherFacture {
 
 	/**
-	 * 
+	 * affiche la facture de chacune des clients avec les erreurs 
 	 * @param fileNameAndExtension
 	 * 
 	 */
@@ -103,7 +103,7 @@ public class AfficherFacture {
 
 	
 	/**
-	 * 
+	 * Vérifie si le client continent des chiffres
 	 * @param lineRead
 	 * @return vrai ou faux
 	 */
@@ -117,7 +117,7 @@ public class AfficherFacture {
 
 	
 	/**
-	 * 
+	 *  Vérifie si la commande et les plats sont des chifres ou des données illégaux
 	 * @param lineRead
 	 * @return vrai ou faux
 	 */
@@ -132,7 +132,7 @@ public class AfficherFacture {
 
 	
 	/**
-	 * 
+	 * Crée la facture pour chaque client
 	 * @param arrClients
 	 * @param arrPlats
 	 * @param arrCommandes
@@ -181,11 +181,11 @@ public class AfficherFacture {
 
 	
 	/**
-	 * 
+	 *  calcule le prix totale
 	 * @param arrCommandes
 	 * @param arrPlats
 	 * @param nomClient
-	 * @return
+	 * @return prixTotal
 	 */
 	private double calculerCoutTotal(String[] arrCommandes, String[] arrPlats, String nomClient) {
 
