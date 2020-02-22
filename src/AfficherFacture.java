@@ -117,7 +117,7 @@ public class AfficherFacture {
 
 	
 	/**
-	 *  Vérifie si la commande et les plats sont des chifres ou des données illégaux
+	 *  Vérifie si la commande et les plats ont des données illégaux
 	 * @param lineRead
 	 * @return vrai ou faux
 	 */
@@ -181,7 +181,7 @@ public class AfficherFacture {
 
 	
 	/**
-	 *  calcule le prix totale
+	 *  Calcule le prix totale
 	 * @param arrCommandes
 	 * @param arrPlats
 	 * @param nomClient
