@@ -1,0 +1,11 @@
+17-4-2020 04:32:02
+*********************
+Nom du Client :  Céline
+Frites X2
+Prix par plat : 2.5
+*********************
+Repas_Poulet X1
+Prix par plat : 15.75
+*********************
+Total Partiel : 20.75
+Total 23.86

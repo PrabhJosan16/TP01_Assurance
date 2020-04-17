@@ -3,10 +3,12 @@ public class Commande {
 
 	private Plats plats;
 	private int nbPlats;
+	private String nomClient;
 
-	public Commande(Plats plats, int nbPlats) {
-		this.plats = plats;
+	public Commande(Plats plat, int nbPlats, String nomClient) {
+		this.plats = plat;
 		this.nbPlats = nbPlats;
+		this.nomClient = nomClient;
 	}
 
 	// Section pour avoir et changer le Plats plats - Début
@@ -29,4 +31,13 @@ public class Commande {
 	}
 	// Section pour avoir et changer le int nbPlats - Fin
 
+	// Section pour avoir et changer le nomClient - Début
+	public void setNomClient(String nomClient) {
+		this.nomClient = nomClient;
+	}
+
+	public String getNomClient() {
+		return this.nomClient;
+	}
+	// Section pour avoir et changer le nomClient - Fin
 }
