@@ -1,8 +1,0 @@
-17-4-2020 04:40:40
-*********************
-Nom du Client :  Roger
-Poutine X1
-Prix par plat : 10.5
-*********************
-Total Partiel : 10.5
-Total 12.07
