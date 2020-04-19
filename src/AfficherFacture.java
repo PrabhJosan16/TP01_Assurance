@@ -13,6 +13,10 @@ public class AfficherFacture {
 	 * 
 	 * @param fileNameAndExtension
 	 */
+
+	public double pourcentageTaxesTPS = 0.09975;
+	public double pourcentageTaxesTVQ = 0.05;
+
 	public AfficherFacture(String fileNameAndExtension) {
 		String listeClients = "";
 		String listePlats = "";
@@ -21,9 +25,8 @@ public class AfficherFacture {
 		try {
 			// Ceci crée un nouveau fichier avec le nom complet du fichier
 			File file = new File(fileNameAndExtension);
-			// Prendre chaque section et les mettre dans arrClients, arrPlats et
-			// arrCommandes
-			Scanner inputStream = new Scanner(file);
+			// créer arrClients, arrPlats et arrCommandes
+			Scanner inputStream = new Scanner(file); 
 			int typeData = 0;
 			int nbLigneCourante = 0;
 			while (inputStream.hasNext()) {
@@ -68,7 +71,7 @@ public class AfficherFacture {
 			}
 
 			if (listeClients != "" || listePlats != "" || listeCommandes != "") {
-				creerUnFichierChqClient(listeClients, listePlats, listeCommandes);
+				creerUnFichierChqClinet(listeClients, listePlats, listeCommandes);
 			} else {
 				System.out.println("Le fichier est vide dans une ou plusieurs sections (plat, client, Commande).");
 			}
@@ -84,50 +87,48 @@ public class AfficherFacture {
 	 * @param listePlats
 	 * @param listeCommandes
 	 */
-	public void creerUnFichierChqClient(String listeClients, String listePlats, String listeCommandes) {
+	public void creerUnFichierChqClinet(String listeClients, String listePlats, String listeCommandes) {
 		String[] arrClients = listeClients.split(";");
 		String[] arrPlats = listePlats.split(";");
 		String[] arrCommandes = listeCommandes.split(";");
 		int nbClients = arrClients.length;
 		Client[] listeClient = creerChqClient(arrClients, arrPlats, arrCommandes, nbClients);
-
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+		String jourAchatStr = formatter.format(new Date());
+		System.out.println( jourAchatStr );
+		String recuClientFinal = jourAchatStr + "\n";
+		
 		for (int i = 0; i < listeClient.length; i++) {
 			Commande[] commandeArray = listeClient[i].getCommande();
-
-				if (commandeArray.length != 0) {
-					double prixTotalPartiel =  calculerPrixTotalPartiel(commandeArray) ; 
-					if (prixTotalPartiel <= 0) {
-						System.out.println("Le prix total pour le client " + listeClient[i].getNomClient()
-								+ "  ne peut pas être 0 ou un chiffre négative");
-					} else {
-						try {
-							SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy");
-							String strJour = formatter.format(new Date());
-							SimpleDateFormat formatHours = new SimpleDateFormat("HH");
-							String tempsHeures = formatHours.format(new Date());
-							
-							FileWriter myWriter = new FileWriter("Facture_du_client_" + strJour + "_" + tempsHeures + "h_"
-									+ listeClient[i].getNomClient() + ".txt");
-							myWriter.write(afficherUnClient(listeClient[i], prixTotalPartiel));
-							myWriter.close();
-							System.out.println(afficherUnClient(listeClient[i], prixTotalPartiel));
-							System.out.println(
-									"-------------------------------------------------------------------------");
-							System.out.println(
-									"Le fichier du client " + listeClient[i].getNomClient() + "a été crée avec succès.");
-							System.out.println(
-									"-------------------------------------------------------------------------");
-						} catch (IOException e) {
-							System.out.println("Le fichier pour le client " + listeClient[i].getNomClient()
-									+ "n'a pas peut etre crée");
-							e.printStackTrace();
-						}
-					}
-				} else {
-					System.out.println("Le client " + listeClient[i].getNomClient() + " n'a rien acheté.");
-				}
-
 			
+			if (commandeArray.length != 0) {
+				double prixTotalPartiel = calculerPrixTotalPartiel(commandeArray);
+				if (prixTotalPartiel <= 0) {
+					System.out.println("Le prix total pour le client " + listeClient[i].getNomClient()
+							+ "  ne peut pas être 0 ou un chiffre négative");
+				} else {
+					recuClientFinal += afficherUnClient(listeClient[i], prixTotalPartiel);
+					System.out.println(afficherUnClient(listeClient[i], prixTotalPartiel));
+				}
+			} else {
+				System.out.println("Le client " + listeClient[i].getNomClient() + " n'a rien acheté.");
+			}
+
+		}
+
+		SimpleDateFormat formatter2 = new SimpleDateFormat("dd-M-yyyy");
+		String strJour = formatter2.format(new Date());
+		SimpleDateFormat formatHours = new SimpleDateFormat("HH");
+		String tempsHeures = formatHours.format(new Date());
+
+		try {
+			FileWriter myWriter = new FileWriter("Facture_du_" + strJour + "_" + tempsHeures + "h_" + ".txt");
+			myWriter.write(recuClientFinal);
+			myWriter.close();
+		} catch (IOException e) {
+			System.out.println("Le fichier de sortie n'a pas peut etre crée ");
+			e.printStackTrace();
 		}
 
 	}
@@ -194,15 +195,19 @@ public class AfficherFacture {
 			String[] nomPlatCommandeClient = nomPlatArryList.toArray(new String[0]);
 			int[] quantiteCommandeClient = nbPlatArryList.stream().mapToInt(Integer::intValue).toArray();
 			String[] nomClientCommandeClient = nomClientArryList.toArray(new String[0]);
+			
 			// Ce bloque crée toutes les commandes avec
 			ArrayList<Commande> commandeArrayList = new ArrayList<Commande>();
 			for (int j = 0; j < nomPlatCommandeClient.length; j++) {
 				for (int x = 0; x < tousLesPlatsMenu.length; x++) {
 					if (tousLesPlatsMenu[x].getNomPlats().equals(nomPlatCommandeClient[j])) {
 						if (quantiteCommandeClient[j] <= 0) {
+							
 							System.out.print("La commande : " + nomClientCommandeClient[j] + " "
 									+ tousLesPlatsMenu[x].getNomPlats() + " " + quantiteCommandeClient[j]);
+							
 							System.out.println(" ne peut pas avoir une quanitité inferieur ou égale à 0");
+							
 						} else {
 
 							commandeArrayList.add(new Commande(tousLesPlatsMenu[x], quantiteCommandeClient[j],
@@ -220,6 +225,7 @@ public class AfficherFacture {
 	}
 
 	public Plats[] tousPlats(String[] arrPlats) {
+		
 		// Ce bloque crée chaque plat existant
 		ArrayList<Plats> platsArrayList = new ArrayList<Plats>();
 		// int nbPlats = arrPlats.length ;
@@ -239,7 +245,6 @@ public class AfficherFacture {
 
 		double prixTotalPartiel = 0;
 		for (int j = 0; j < commandeArray.length; j++) {
-			System.out.println( commandeArray[j].getPlats().getPrixPlats()  + "* " +  commandeArray[j].getNbPlats());
 			prixTotalPartiel += commandeArray[j].getPlats().getPrixPlats() * commandeArray[j].getNbPlats();
 		}
 		return prixTotalPartiel;
@@ -249,11 +254,11 @@ public class AfficherFacture {
 		String commandePourUnClient = "";
 		Commande[] commandeArray = client.getCommande();
 
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-		String jourAchatStr = formatter.format(new Date());
-
+	
+		
+		
 		commandePourUnClient = "____________________________________\n";
-		commandePourUnClient = jourAchatStr + "\n";
+		
 		commandePourUnClient += "*********************\n";
 		commandePourUnClient += "Nom du Client :  " + client.getNomClient() + "\n";
 		for (int i = 0; i < commandeArray.length; i++) {
@@ -263,21 +268,17 @@ public class AfficherFacture {
 			commandePourUnClient += "*********************" + "\n";
 		}
 		commandePourUnClient += "Total Partiel : " + prixTotalPartiel + "\n";
-		commandePourUnClient += "Total " + arrondir(
-				caluclerTotal(prixTotalPartiel, caluclerTPS(prixTotalPartiel), caluclerTVQ(prixTotalPartiel)), 2)
+		commandePourUnClient += "Total "
+				+ arrondir(caluclerTotal(prixTotalPartiel, calucleraxes(prixTotalPartiel, pourcentageTaxesTPS),
+						calucleraxes(prixTotalPartiel, pourcentageTaxesTVQ)), 2)
 				+ "\n";
 		return commandePourUnClient;
 	}
 
 	// Cette section est pour calculer les taxes et bieb plus
-	private double caluclerTPS(double totalPartiel) {
-		double pourcentageTPS = 0.05;
-		return totalPartiel * pourcentageTPS;
-	}
 
-	private double caluclerTVQ(double totalPartiel) {
-		double pourcentageTVQ = 0.09975;
-		return totalPartiel * pourcentageTVQ;
+	private double calucleraxes(double totalPartiel, double pourcentageTax) {
+		return totalPartiel * pourcentageTax;
 	}
 
 	private double caluclerTotal(double totalPartiel, double tps, double tvq) {
