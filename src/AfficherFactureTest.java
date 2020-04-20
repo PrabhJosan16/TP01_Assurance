@@ -19,7 +19,7 @@ public class AfficherFactureTest {
 		System.out.println("Fichier sans extention\n");
 	
 		AfficherFacture factureSansExtention = new AfficherFacture("clients");
-		
+	
 		
 		System.out.println("******************************************");
 		
