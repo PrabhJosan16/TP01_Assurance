@@ -255,7 +255,7 @@ public class AfficherFacture {
 		return platchqCommandeDuClient;
 	}
 
-<<<<<<< HEAD
+
 	
 	/**
 	 *  Calcule le prix totale
@@ -265,9 +265,9 @@ public class AfficherFacture {
 	 * @return prixTotal
 	 */
 	private double calculerCoutTotal(String[] arrCommandes, String[] arrPlats, String nomClient) {
-=======
+
 	public double calculerPrixTotalPartiel(Commande[] commandeArray) {
->>>>>>> dev
+
 
 		double prixTotalPartiel = 0;
 		for (int j = 0; j < commandeArray.length; j++) {
