@@ -9,12 +9,8 @@ import java.text.SimpleDateFormat;
 
 public class AfficherFacture {
 	/**
-<<<<<<< HEAD
-	 * affiche la facture de chacune des clients avec les erreurs 
-=======
 	 * affiche la facture de chacune des clients avec les erreurs
 	 * 
->>>>>>> dev
 	 * @param fileNameAndExtension
 	 */
 
@@ -139,10 +135,7 @@ public class AfficherFacture {
 
 	/**
 	 * Vérifie si le client continent des chiffres
-<<<<<<< HEAD
-=======
 	 * 
->>>>>>> dev
 	 * @param lineRead
 	 * @return vrai ou faux
 	 */
@@ -156,12 +149,8 @@ public class AfficherFacture {
 	}
 
 	/**
-<<<<<<< HEAD
-	 *  Vérifie si la commande et les plats ont des données illégaux
-=======
 	 * Vérifie si la commande et les plats ont des données illégaux
 	 * 
->>>>>>> dev
 	 * @param lineRead
 	 * @return vrai ou faux
 	 */
@@ -176,10 +165,7 @@ public class AfficherFacture {
 
 	/**
 	 * Crée la facture pour chaque client
-<<<<<<< HEAD
-=======
 	 * 
->>>>>>> dev
 	 * @param arrClients
 	 * @param arrPlats
 	 * @param arrCommandes
@@ -255,19 +241,7 @@ public class AfficherFacture {
 		return platchqCommandeDuClient;
 	}
 
-
-	
-	/**
-	 *  Calcule le prix totale
-	 * @param arrCommandes
-	 * @param arrPlats
-	 * @param nomClient
-	 * @return prixTotal
-	 */
-	private double calculerCoutTotal(String[] arrCommandes, String[] arrPlats, String nomClient) {
-
 	public double calculerPrixTotalPartiel(Commande[] commandeArray) {
-
 
 		double prixTotalPartiel = 0;
 		for (int j = 0; j < commandeArray.length; j++) {

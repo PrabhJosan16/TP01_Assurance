@@ -1,0 +1,20 @@
+20-4-2020 02:16:59
+____________________________________
+*********************
+Nom du Client :  Roger
+Poutine X1
+Prix par plat : 10.5
+*********************
+Total Partiel : 10.5
+Total 12.07
+____________________________________
+*********************
+Nom du Client :  Céline
+Frites X2
+Prix par plat : 2.5
+*********************
+Repas_Poulet X1
+Prix par plat : 15.75
+*********************
+Total Partiel : 20.75
+Total 23.86
